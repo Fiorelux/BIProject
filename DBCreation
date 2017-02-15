@@ -1,5 +1,5 @@
 CREATE TABLE MarketPlace(
-	Ticker	VARCHAR2(4),
+	Market	VARCHAR2(10),
 	CommonName VARCHAR2(30),
 	Currency VARCHAR2(3)
 	CONSTRAINT pk_Ticker PRIMARY KEY (Ticker)
