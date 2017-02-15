@@ -1,19 +1,53 @@
 CREATE TABLE MarketPlace(
 	Market	VARCHAR2(10),
-	CommonName VARCHAR2(30),
-	Currency VARCHAR2(3)
-	CONSTRAINT pk_Ticker PRIMARY KEY (Ticker)
+	Name VARCHAR2(65),
+	CreateYear NUMBER(6,0),
+	Country VARCHAR2(3),
+	CONSTRAINT pk_Market PRIMARY KEY (Market)
 );
+CREATE TABLE Sector(
+	Sector	VARCHAR2(35),
+	ParentSector VARCHAR2(15),
+	CONSTRAINT pk_Sector PRIMARY KEY (Sector)
+);
+CREATE TABLE Broker(
+	Trader	NUMBER(2,0),
+	AccountName VARCHAR2(45),
+	Street VARCHAR2(40),
+	City VARCHAR2(15),
+	State VARCHAR2(2),
+	ZipCode VARCHAR2(5),
+	MainPhone VARCHAR2(15),
+	WebSite VARCHAR2(30)
+	CONSTRAINT pk_Trader PRIMARY KEY (Trader)
+);
+
 
 CREATE TABLE Company (
 	Ticker	VARCHAR2(4),
 	CommonName VARCHAR2(30),
 	Currency VARCHAR2(3),
 	Market VARCHAR2(10),
-	Sector VARCHAR2(35)
-	CONSTRAINT pk_Ticker PRIMARY KEY (Ticker)
-	CONSTRAINT fk_Company_Market FOREIGN KEY (Market) REFERENCES MarketPlace(Market)	--fk pointing to the pk of the other table
+	Sector VARCHAR2(35),
+	CONSTRAINT pk_Ticker PRIMARY KEY (Ticker),
+	CONSTRAINT fk_Company_Market FOREIGN KEY (Market) REFERENCES MarketPlace(Market),	--fk pointing to the pk of the other table
     CONSTRAINT fk_Company_Sector FOREIGN KEY (Sector) REFERENCES Sector(Sector)	--fk pointing to the pk of the other table
 );
 
+CREATE TABLE MktOrder(
+	OrderId	VARCHAR2(6),
+	OrderDay DATE,
+	OrderTime TIMESTAMP,
+	Msec NUMBER(3,0),
+	BS ENUM('B','S'),
+	OrderSize VARCHAR2( 5),
+	MainPhone VARCHAR2(15),
+	WebSite VARCHAR2(30),
+	Ticker	VARCHAR2(4),
+	Trader	NUMBER(2,0),
+	CONSTRAINT pk_MktOrder PRIMARY KEY (OrderId),
+	CONSTRAINT fk_MktOrd_Company FOREIGN KEY (Ticker) REFERENCES Company(Ticker),	--fk pointing to the pk of the other table
+    CONSTRAINT fk_MktOrd_Broker FOREIGN KEY (Trader) REFERENCES Broker(Trader)	--fk pointing to the pk of the other table
+
+);
 
