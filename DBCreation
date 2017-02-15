@@ -1,0 +1,19 @@
+CREATE TABLE MarketPlace(
+	Ticker	VARCHAR2(4),
+	CommonName VARCHAR2(30),
+	Currency VARCHAR2(3)
+	CONSTRAINT pk_Ticker PRIMARY KEY (Ticker)
+);
+
+CREATE TABLE Company (
+	Ticker	VARCHAR2(4),
+	CommonName VARCHAR2(30),
+	Currency VARCHAR2(3),
+	Market VARCHAR2(10),
+	Sector VARCHAR2(35)
+	CONSTRAINT pk_Ticker PRIMARY KEY (Ticker)
+	CONSTRAINT fk_Company_Market FOREIGN KEY (Market) REFERENCES MarketPlace(Market)	--fk pointing to the pk of the other table
+    CONSTRAINT fk_Company_Sector FOREIGN KEY (Sector) REFERENCES Sector(Sector)	--fk pointing to the pk of the other table
+);
+
+
