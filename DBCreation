@@ -21,7 +21,7 @@ CREATE TABLE Broker(
 	State VARCHAR2(2),
 	ZipCode VARCHAR2(5),
 	MainPhone VARCHAR2(15),
-	WebSite VARCHAR2(30)
+	WebSite VARCHAR2(30),
 	CONSTRAINT pk_Trader PRIMARY KEY (Trader)
 );
 
