@@ -42,7 +42,7 @@ CREATE TABLE MktOrder(
 	OrderDay DATE,
 	OrderTime TIMESTAMP,
 	Msec NUMBER(3,0),
-	BS ENUM('B','S'),
+	BS VARCHAR(2) check (BS in ('B','S')),
 	OrderSize VARCHAR2( 5),
 	MainPhone VARCHAR2(15),
 	WebSite VARCHAR2(30),
