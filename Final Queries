@@ -1,3 +1,4 @@
+-- Query 1: relative importance of each company for all 10 traders
 SELECT  mkt.trader,
         ROUND(SUM((CASE WHEN mkt.ticker='ORCL' THEN 1 ELSE 0 END)/tt.total)*100,2) AS "ORACLE trades per trader",
         ROUND(SUM((CASE WHEN mkt.ticker='ADBE' THEN 1 ELSE 0 END)/tt.total)*100,2) AS "ADOBE trades per trader",
@@ -16,6 +17,29 @@ SELECT  mkt.trader,
                           GROUP BY mkt2.trader 
                           ) tt
       WHERE tt.trader = mkt.trader
+      GROUP BY mkt.trader
+      ORDER BY mkt.trader ASC;
+      
+      
+-- Query 2: relative importance of each trader for all 10 companies      
+SELECT  mkt.trader,
+        ROUND(SUM((CASE WHEN mkt.ticker='ORCL' THEN 1 ELSE 0 END)/tt.total)*100,2) AS "ORACLE trades per trader",
+        ROUND(SUM((CASE WHEN mkt.ticker='ADBE' THEN 1 ELSE 0 END)/tt.total)*100,2) AS "ADOBE trades per trader",
+        ROUND(SUM((CASE WHEN mkt.ticker='DELL' THEN 1 ELSE 0 END)/tt.total)*100,2) AS "DELL trades per trader",
+        ROUND(SUM((CASE WHEN mkt.ticker='EBAY' THEN 1 ELSE 0 END)/tt.total)*100,2) AS "EBAY trades per trader",
+        ROUND(SUM((CASE WHEN mkt.ticker='CSCO' THEN 1 ELSE 0 END)/tt.total)*100,2) AS "CSCO trades per trader",
+        ROUND(SUM((CASE WHEN mkt.ticker='SUNW' THEN 1 ELSE 0 END)/tt.total)*100,2) AS "SUNW trades per trader",
+        ROUND(SUM((CASE WHEN mkt.ticker='AMZN' THEN 1 ELSE 0 END)/tt.total)*100,2) AS "AMZN trades per trader",
+        ROUND(SUM((CASE WHEN mkt.ticker='MSFT' THEN 1 ELSE 0 END)/tt.total)*100,2) AS "MSFT trades per trader",
+        ROUND(SUM((CASE WHEN mkt.ticker='AAPL' THEN 1 ELSE 0 END)/tt.total)*100,2) AS "AAPL trades per trader",
+        ROUND(SUM((CASE WHEN mkt.ticker='YHOO' THEN 1 ELSE 0 END)/tt.total)*100,2) AS "YHOO trades per trader",
+        sum(tt.total) AS "row total"
+      FROM MKTORDER mkt, (SELECT mkt2.ticker,
+                            COUNT(mkt2.ordersize) as TOTAL
+                          FROM MKTORDER mkt2
+                          GROUP BY mkt2.ticker 
+                          ) tt
+      WHERE tt.ticker = mkt.ticker
       GROUP BY mkt.trader
       ORDER BY mkt.trader ASC;
       
