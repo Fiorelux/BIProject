@@ -43,4 +43,18 @@ SELECT  mkt.trader,
       GROUP BY mkt.trader
       ORDER BY mkt.trader ASC;
       
-      
+--SQL data modification to add the foreign keys and the row 
+        insert into SECTOR (sector, parentsector)
+        values('Photovoltaics','Technology');
+
+        insert into SECTOR (sector, parentsector)
+        values('Computer Hardware','Technology');
+
+        update company 
+        set sector='Photovoltaics'
+        where ticker='SUNW';
+
+        update company 
+        set sector='Computer Hardware'
+        where ticker='DELL';
+        commit;
