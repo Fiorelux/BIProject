@@ -52,7 +52,13 @@ select c.parentsector,
 from (company a join mktorder b on a.ticker=b.ticker) 
         left join sector c on a.sector=c.sector      
 group by c.parentsector
-      
+--Query 4: Number of order by market
+select c.name as marketName,
+      count(b.bs) as N_order,
+      sum(b.price*b.ordersize) as Amoun_Inv
+from (company a join mktorder b on a.ticker=b.ticker) 
+        left join marketplace c on a.market=c.market      
+group by c.name
 --SQL data modification to add the foreign keys and the row 
         insert into SECTOR (sector, parentsector)
         values('Photovoltaics','Technology');
