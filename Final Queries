@@ -44,6 +44,14 @@ from (select a.commonname as company_Name,
       where b.BS='S'
       group by a.commonname) sell
 where buy.company_Name=sell.company_Name;
+
+--Query 3: number of order and amount invested by parentsector
+select c.parentsector,
+      count(b.bs) as N_order,
+      sum(b.price*b.ordersize) as Amoun_Inv
+from (company a join mktorder b on a.ticker=b.ticker) 
+        left join sector c on a.sector=c.sector      
+group by c.parentsector
       
 --SQL data modification to add the foreign keys and the row 
         insert into SECTOR (sector, parentsector)
